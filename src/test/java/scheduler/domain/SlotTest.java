@@ -1,8 +1,6 @@
-package domain;
+package scheduler.domain;
 
 import org.junit.jupiter.api.Test;
-import scheduler.domain.Role;
-import scheduler.domain.Slot;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;

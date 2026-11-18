@@ -1,8 +1,6 @@
-package constraints;
+package scheduler.constraints;
 
 import org.junit.jupiter.api.Test;
-import scheduler.constraints.Severity;
-import scheduler.constraints.Violation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

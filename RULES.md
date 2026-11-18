@@ -21,7 +21,7 @@
 ## Availability and replanning
 
 9. **Availability confirmation.** Before a schedule is published, each person confirms their availability. If a person is unavailable for a slot, only that slot is regenerated; the rest of the schedule stays unchanged.
-10. **No empty slots.** A slot is never left empty. If a person is unavailable, the system first looks for a replacement that respects all rules. If none exists, it relaxes the rotation rule (5): the person who had the same activity in the previous calendar week or the previous service may be repeated. If that is still not enough, it swaps assignments with a person scheduled in another slot, as long as both slots still satisfy the hard constraints (1-4).
+10. **Avoid empty slots.** The system tries, in steps, not to leave a slot empty. If a person is unavailable, it first looks for a replacement that respects all rules. If none exists, it relaxes the rotation rule (5): the person who had the same activity in the previous calendar week or the previous service may be repeated. If that is still not enough, it swaps assignments with a person scheduled in another slot, as long as both slots still satisfy the hard constraints (1-4). If all steps fail, the slot is reported as uncovered, with the reason, and the user fills it in manually. Until then the schedule counts as invalid and cannot be published.
 ## Activities and singing
 
 11. **Activities.** The only activities are prayer, sermon and singing.

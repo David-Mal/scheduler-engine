@@ -1,4 +1,4 @@
-package constraints;
+package scheduler.constraints;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import scheduler.constraints.*;
 import scheduler.domain.*;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -1,8 +1,6 @@
-package domain;
+package scheduler.domain;
 
 import org.junit.jupiter.api.Test;
-import scheduler.domain.Assignment;
-import scheduler.domain.Role;
 
 import java.util.UUID;
 

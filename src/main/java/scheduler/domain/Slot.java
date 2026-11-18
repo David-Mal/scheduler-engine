@@ -1,7 +1,5 @@
 package scheduler.domain;
 
-import scheduler.domain.Role;
-
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;

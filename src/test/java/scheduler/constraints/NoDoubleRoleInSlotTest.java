@@ -1,9 +1,6 @@
-package constraints;
+package scheduler.constraints;
 
 import org.junit.jupiter.api.Test;
-import scheduler.constraints.NoDoubleRoleInSlot;
-import scheduler.constraints.Severity;
-import scheduler.constraints.Violation;
 import scheduler.domain.*;
 
 import java.time.LocalDateTime;

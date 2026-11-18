@@ -1,7 +1,6 @@
 package scheduler.domain;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record Unavailability(UUID participantId, LocalDate from, LocalDate to) {

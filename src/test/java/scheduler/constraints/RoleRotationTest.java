@@ -1,9 +1,7 @@
-package constraints;
+package scheduler.constraints;
 
 import org.junit.jupiter.api.Test;
-import scheduler.constraints.RoleRotation;
 import scheduler.domain.*;
-import scheduler.constraints.*;
 
 import java.time.LocalDateTime;
 import java.util.List;

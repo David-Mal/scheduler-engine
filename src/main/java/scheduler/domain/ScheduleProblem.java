@@ -35,13 +35,13 @@ public class ScheduleProblem {
 
     public List<Participant> participants() {
         return participants.values().stream()
-                .sorted(Comparator.comparing(Participant::name))
+                .sorted(Comparator.comparing(Participant::name).thenComparing(Participant::id))
                 .toList();
     }
 
     public List<Slot> slots() {
         return slots.values().stream()
-                .sorted(Comparator.comparing(Slot::start))
+                .sorted(Comparator.comparing(Slot::start).thenComparing(Slot::id))
                 .toList();
     }
 

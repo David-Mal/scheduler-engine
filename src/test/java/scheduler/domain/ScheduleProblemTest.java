@@ -1,10 +1,6 @@
-package domain;
+package scheduler.domain;
 
 import org.junit.jupiter.api.Test;
-import scheduler.domain.Participant;
-import scheduler.domain.Role;
-import scheduler.domain.ScheduleProblem;
-import scheduler.domain.Slot;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,6 +27,23 @@ class ScheduleProblemTest {
         assertThat(problem.participant(ion.id())).isEqualTo(ion);
         assertThat(problem.slot(morning.id())).isEqualTo(morning);
         assertThat(problem.slots()).containsExactly(morning, evening);
+    }
+
+    @Test
+    void tiesAreBrokenByIdSoTheOrderIsDeterministic() {
+        UUID low = UUID.fromString("00000000-0000-0000-0000-000000000001");
+        UUID high = UUID.fromString("00000000-0000-0000-0000-000000000002");
+
+        Participant ionLow = new Participant(low, "Ion", Set.of(Role.PRAYER), Map.of());
+        Participant ionHigh = new Participant(high, "Ion", Set.of(Role.PRAYER), Map.of());
+        Slot slotLow = new Slot(low, morning.start(), Map.of(Role.PRAYER, 1));
+        Slot slotHigh = new Slot(high, morning.start(), Map.of(Role.PRAYER, 1));
+
+        ScheduleProblem problem = new ScheduleProblem(
+                List.of(ionHigh, ionLow), List.of(slotHigh, slotLow), List.of());
+
+        assertThat(problem.participants()).containsExactly(ionLow, ionHigh);
+        assertThat(problem.slots()).containsExactly(slotLow, slotHigh);
     }
 
     @Test

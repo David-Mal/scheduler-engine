@@ -1,4 +1,4 @@
-package constraints;
+package scheduler.constraints;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,13 +8,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import scheduler.domain.*;
-import scheduler.constraints.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class FairSingingDistributionTest {
+class FairRoleDistributionTest {
 
-    private final FairSingingDistribution constraint = new FairSingingDistribution(10);
+    private final FairRoleDistribution constraint = new FairRoleDistribution(Role.SINGING, 10);
 
     private final Participant choir = singer("Choir");
     private final Participant boys = singer("Boys' group");
@@ -65,7 +64,7 @@ class FairSingingDistributionTest {
         assertThat(violations).hasSize(1);
         Violation v = violations.get(0);
         assertThat(v.severity()).isEqualTo(Severity.SOFT);
-        assertThat(v.constraintName()).isEqualTo("FairSingingDistribution");
+        assertThat(v.constraintName()).isEqualTo("FairRoleDistribution");
         assertThat(v.weight()).isEqualTo(30);
         assertThat(v.participantId()).isEqualTo(boys.id());
         assertThat(v.slotId()).isNull();
@@ -86,5 +85,28 @@ class FairSingingDistributionTest {
         ScheduleProblem withoutSingers = new ScheduleProblem(List.of(ion), slots, List.of());
 
         assertThat(constraint.evaluate(new Schedule(), withoutSingers)).isEmpty();
+    }
+
+    @Test
+    void worksForAnyRoleAndIgnoresTheOtherRoles() {
+        Participant dan = new Participant(UUID.randomUUID(), "Dan",
+                Set.of(Role.PRAYER, Role.SERMON), Map.of());
+        ScheduleProblem withTwoSpeakers = new ScheduleProblem(
+                List.of(choir, ion, dan), slots, List.of());
+
+        // Ion prays 3 times and Dan never; singing must not influence the result
+        Schedule schedule = new Schedule();
+        for (int i = 0; i < 3; i++) {
+            schedule.add(new Assignment(slots.get(i).id(), Role.PRAYER, ion.id()));
+            schedule.add(new Assignment(slots.get(i).id(), Role.SINGING, choir.id()));
+        }
+
+        List<Violation> violations =
+                new FairRoleDistribution(Role.PRAYER, 5).evaluate(schedule, withTwoSpeakers);
+
+        assertThat(violations).hasSize(1);
+        assertThat(violations.get(0).participantId()).isEqualTo(ion.id());
+        assertThat(violations.get(0).weight()).isEqualTo(10);
+        assertThat(violations.get(0).message()).contains("Ion", "PRAYER");
     }
 }

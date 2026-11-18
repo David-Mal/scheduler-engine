@@ -1,11 +1,8 @@
-package constraints;
+package scheduler.constraints;
 
 import org.junit.jupiter.api.Test;
 
-import scheduler.constraints.RespectUnavailability;
-import scheduler.constraints.Violation;
 import scheduler.domain.*;
-import scheduler.constraints.Severity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

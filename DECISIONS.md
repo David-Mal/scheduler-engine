@@ -89,3 +89,19 @@ invalid until the user completes it.
 
 **Why:** some months have no valid solution (too many people away). A partial
 plan with clear reasons is more useful than an exception or a silently broken rule.
+
+## 8. Default constraint set and weights
+
+**Decision:** `DefaultConstraints.standard()` returns 10 constraints: 6 hard
+(NoDoubleRoleInSlot, RespectUnavailability, ParticipantHasRole, SlotFullyCovered,
+MonthlyLimit, NoSermonTwiceSameDay) and 4 soft (RoleRotation, plus FairRoleDistribution
+for PRAYER, SERMON and SINGING). Weights: rotation = 10, fairness = 5, as named constants.
+
+**Why:**
+- A weight is a penalty, so only the ratio between weights matters.
+- Rotation > fairness: the same person doing the same task in consecutive weeks is
+  more visible than a small imbalance over the whole month.
+- FairRoleDistribution multiplies its weight by the excess, so a big imbalance costs more.
+
+**Status:** provisional. To be tuned on the real data in step 34, by checking whether
+the generated plan matches what a person would have made by hand.

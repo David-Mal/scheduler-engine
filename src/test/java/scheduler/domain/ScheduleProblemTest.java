@@ -21,6 +21,16 @@ class ScheduleProblemTest {
             LocalDateTime.of(2026, 11, 15, 10, 0), Map.of(Role.PRAYER, 1));
 
     @Test
+    void containsChecksIds() {
+        ScheduleProblem problem = new ScheduleProblem(List.of(ion), List.of(morning), List.of());
+
+        assertThat(problem.containsParticipant(ion.id())).isTrue();
+        assertThat(problem.containsParticipant(UUID.randomUUID())).isFalse();
+        assertThat(problem.containsSlot(morning.id())).isTrue();
+        assertThat(problem.containsSlot(UUID.randomUUID())).isFalse();
+    }
+
+    @Test
     void looksUpByIdAndSortsSlots() {
         ScheduleProblem problem = new ScheduleProblem(List.of(ion), List.of(evening, morning), List.of());
 

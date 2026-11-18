@@ -48,4 +48,12 @@ public class ScheduleProblem {
     public List<Unavailability> unavailabilities() {
         return unavailabilities;
     }
+
+    public boolean containsSlot(UUID id) {
+        return slots.containsKey(id);
+    }
+
+    public boolean containsParticipant(UUID id) {
+        return participants.containsKey(id);
+    }
 }
